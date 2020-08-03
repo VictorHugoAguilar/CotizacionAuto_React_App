@@ -55,23 +55,23 @@ const Error = styled.div`
     margin-bottom: 1.5rem;
 `;
 
-const Formulario = ({setResumen}) => {
+const Formulario = ({ setResumen, setCargando }) => {
 
-    const [ datos, setDatos ] = useState({
+    const [datos, setDatos] = useState({
         marca: '',
         year: '',
         plan: ''
     });
-    const [ error, setError ] = useState(false);
+    const [error, setError] = useState(false);
 
     // Extraemos los valores del state
-    const { marca, year, plan }  = datos;
+    const { marca, year, plan } = datos;
 
     // leer los datos del formulario y colocarlos en el state
-    const obtenerInformacion =  e => {
+    const obtenerInformacion = e => {
         setDatos({
             ...datos,
-            [ e.target.name ] : e.target.value
+            [e.target.name]: e.target.value
         });
     }
 
@@ -79,7 +79,7 @@ const Formulario = ({setResumen}) => {
     const cotizarSeguro = e => {
         e.preventDefault();
 
-        if(marca.trim() === '' || year.trim() === '' || plan.trim() === ''){
+        if (marca.trim() === '' || year.trim() === '' || plan.trim() === '') {
             setError(true);
             return;
         }
@@ -90,37 +90,46 @@ const Formulario = ({setResumen}) => {
 
         // Obtener la diferencia de años
         const diffYear = obtenerDiffYear(year);
-        
+
         // por cada año restar un 3%
-        resultado -= ((diffYear * 3) * resultado ) / 100;
+        resultado -= ((diffYear * 3) * resultado) / 100;
 
         // Marca incrementa A 15 E 40 As 5%
         resultado = calculaMarca(marca) * resultado;
-        
+
         // Basico 20% Completo 50%
         const incrementoPlan = calculaPlan(plan);
-        resultado = parseFloat( incrementoPlan * resultado ).toFixed(2);
+        resultado = parseFloat(incrementoPlan * resultado).toFixed(2);
 
-        // Total
-        console.log(resultado)
-        setResumen({
-            cotizacion: resultado,
-            datos: datos
-        });
+        setCargando(true);
+
+        setTimeout(() => {
+            // Guardamos el Total
+            setResumen({
+                cotizacion: resultado,
+                datos: datos
+            });
+
+            // Eliminar Spinner
+            setCargando(false);
+
+        }, 3000);
+
+
     }
 
     return (
         <form
-            onSubmit={ cotizarSeguro }
+            onSubmit={cotizarSeguro}
         >
-            { error ? <Error>Todos los campos son obligatorios </Error> : null}
+            {error ? <Error>Todos los campos son obligatorios </Error> : null}
 
             <Campo>
                 <Label>Marca</Label>
-                <Select 
+                <Select
                     name="marca"
                     value={marca}
-                    onChange={ obtenerInformacion }
+                    onChange={obtenerInformacion}
                 >
                     <option value="">-- Seleccione --</option>
                     <option value="americano">Americano</option>
@@ -133,7 +142,7 @@ const Formulario = ({setResumen}) => {
                 <Select
                     name="year"
                     value={year}
-                    onChange={ obtenerInformacion }
+                    onChange={obtenerInformacion}
                 >
                     <option value="">-- Seleccione --</option>
                     <option value="2021">2021</option>
@@ -150,19 +159,19 @@ const Formulario = ({setResumen}) => {
             </Campo>
             <Campo>
                 <Label>Plan</Label>
-                <InputRadio 
-                    type="radio" 
-                    name="plan" 
+                <InputRadio
+                    type="radio"
+                    name="plan"
                     value="basico"
                     checked={plan === 'basico'}
-                    onChange={ obtenerInformacion }
+                    onChange={obtenerInformacion}
                 />Básico
-                <InputRadio 
-                    type="radio" 
-                    name="plan" 
+                <InputRadio
+                    type="radio"
+                    name="plan"
                     value="completo"
                     checked={plan === 'completo'}
-                    onChange={ obtenerInformacion }
+                    onChange={obtenerInformacion}
                 />Completo
             </Campo>
 

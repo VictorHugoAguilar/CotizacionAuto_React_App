@@ -22,33 +22,47 @@ const ContenedorFormulario = styled.div`
 
 function App() {
 
-  const [ resumen, setResumen ] = useState({
-    cotizacion:0,
-    datos:{
-      marca:'',
-      year:'',
-      plan:''
+  const [resumen, setResumen] = useState({
+    cotizacion: 0,
+    datos: {
+      marca: '',
+      year: '',
+      plan: ''
     }
   });
+
+  const [cargando, setCargando] = useState(false);
 
   const { datos, cotizacion } = resumen;
 
   return (
     <Contenedor>
-        <Header titulo="Cotizador de Seguros"/>
+      <Header titulo="Cotizador de Seguros" />
 
-        <ContenedorFormulario>
+      <ContenedorFormulario>
 
-          <Formulario 
-            setResumen={setResumen}
-          />
+        <Formulario
+          setResumen={setResumen}
+          setCargando={setCargando}
+        />
 
-          <Spinner />
+        {
+          cargando ? <Spinner /> : null
 
-          <Resumen datos={datos}/>
+        }
 
-          <Resultado cotizacion={cotizacion} />
-        </ContenedorFormulario>
+        {
+          !cargando
+          ?
+            <div>
+              <Resumen datos={datos} />
+              <Resultado cotizacion={cotizacion} />
+            </div>
+            :
+            null
+        }
+
+      </ContenedorFormulario>
     </Contenedor>
   );
 }
