@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import Header from './Header';
 
 import styled from '@emotion/styled';
+
+// Importamos los componentes personalizados
 import Formulario from './Formulario';
+import Resumen from './Resumen';
+import Resultado from './Resultado';
 
 const Contenedor = styled.div`
   max-width: 600px;
@@ -16,7 +20,16 @@ const ContenedorFormulario = styled.div`
 
 function App() {
 
-  const [ resumen, setResumen ] = useState({});
+  const [ resumen, setResumen ] = useState({
+    cotizacion:0,
+    datos:{
+      marca:'',
+      year:'',
+      plan:''
+    }
+  });
+
+  const { datos, cotizacion } = resumen;
 
   return (
     <Contenedor>
@@ -26,6 +39,10 @@ function App() {
           <Formulario 
             setResumen={setResumen}
           />
+
+          <Resumen datos={datos}/>
+
+          <Resultado cotizacion={cotizacion} />
         </ContenedorFormulario>
     </Contenedor>
   );
