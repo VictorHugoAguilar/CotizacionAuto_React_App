@@ -7,6 +7,8 @@ import styled from '@emotion/styled';
 import Formulario from './Formulario';
 import Resumen from './Resumen';
 import Resultado from './Resultado';
+import Spinner from './Spinner';
+
 
 const Contenedor = styled.div`
   max-width: 600px;
@@ -36,9 +38,12 @@ function App() {
         <Header titulo="Cotizador de Seguros"/>
 
         <ContenedorFormulario>
+
           <Formulario 
             setResumen={setResumen}
           />
+
+          <Spinner />
 
           <Resumen datos={datos}/>
 
