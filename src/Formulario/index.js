@@ -55,7 +55,7 @@ const Error = styled.div`
     margin-bottom: 1.5rem;
 `;
 
-const Formulario = () => {
+const Formulario = ({setResumen}) => {
 
     const [ datos, setDatos ] = useState({
         marca: '',
@@ -103,6 +103,10 @@ const Formulario = () => {
 
         // Total
         console.log(resultado)
+        setResumen({
+            cotizacion: resultado,
+            datos: datos
+        });
     }
 
     return (
