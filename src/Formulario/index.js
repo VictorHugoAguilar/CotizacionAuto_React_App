@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-
 // Importamos los helpers
 import { obtenerDiffYear, calculaMarca, calculaPlan } from '../Helpers';
-
+// Importamos emotion para style component
 import styled from '@emotion/styled';
 
 const Campo = styled.div`
@@ -38,7 +37,7 @@ const Boton = styled.button`
     font-weight: bold;
     border: none;
     transition: background-color .3s ease;
-    margint-top:2em;
+    margin-top:2em;
 
     &:hover {
         background-color: #26C6DA;
@@ -106,7 +105,7 @@ const Formulario = ({ setResumen, setCargando }) => {
         setTimeout(() => {
             // Guardamos el Total
             setResumen({
-                cotizacion: resultado,
+                cotizacion: Number(resultado),
                 datos: datos
             });
 
@@ -181,7 +180,8 @@ const Formulario = ({ setResumen, setCargando }) => {
 }
 
 Formulario.propTypes = {
-
+    setResumen: PropTypes.func.isRequired,
+    setCargando: PropTypes.func.isRequired
 }
 
 export default Formulario;

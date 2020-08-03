@@ -38,30 +38,30 @@ function App() {
   return (
     <Contenedor>
       <Header titulo="Cotizador de Seguros" />
-
       <ContenedorFormulario>
-
         <Formulario
           setResumen={setResumen}
           setCargando={setCargando}
         />
-
         {
-          cargando ? <Spinner /> : null
-
+          cargando ?
+            (
+              <Spinner />
+            ) : (
+              null
+            )
         }
-
         {
-          !cargando
-          ?
-            <div>
-              <Resumen datos={datos} />
-              <Resultado cotizacion={cotizacion} />
-            </div>
-            :
-            null
+          !cargando ?
+            (
+              <div>
+                <Resumen datos={datos} />
+                <Resultado cotizacion={cotizacion} />
+              </div>
+            ) : (
+              null
+            )
         }
-
       </ContenedorFormulario>
     </Contenedor>
   );

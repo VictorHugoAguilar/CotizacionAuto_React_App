@@ -1,8 +1,7 @@
 import React  from 'react';
 import PropTypes from 'prop-types';
-
 import {firstMayus} from '../Helpers';
-
+// Importamos emotion para style component
 import styled from '@emotion/styled';
 
 const ContenedorResumen = styled.div`

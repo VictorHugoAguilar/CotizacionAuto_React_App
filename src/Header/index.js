@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+// Importamos emotion para style component
 import styled from '@emotion/styled';
 
 const ContenedorHeader = styled.header`
